@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19B846491C04076D00CE9184 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B846481C04076D00CE9184 /* Enemy.swift */; };
+		19B8464C1C040A7500CE9184 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B8464B1C040A7500CE9184 /* Spinner.swift */; };
 		19F388CC1BEBB06D00FD22F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388CB1BEBB06D00FD22F1 /* AppDelegate.swift */; };
-		19F388CE1BEBB06D00FD22F1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19F388CD1BEBB06D00FD22F1 /* GameScene.sks */; };
-		19F388D01BEBB06D00FD22F1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388CF1BEBB06D00FD22F1 /* GameScene.swift */; };
+		19F388CE1BEBB06D00FD22F1 /* LevelOne.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19F388CD1BEBB06D00FD22F1 /* LevelOne.sks */; };
+		19F388D01BEBB06D00FD22F1 /* LevelOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388CF1BEBB06D00FD22F1 /* LevelOne.swift */; };
 		19F388D21BEBB06D00FD22F1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388D11BEBB06D00FD22F1 /* GameViewController.swift */; };
 		19F388D51BEBB06D00FD22F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19F388D31BEBB06D00FD22F1 /* Main.storyboard */; };
 		19F388D71BEBB06D00FD22F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19F388D61BEBB06D00FD22F1 /* Assets.xcassets */; };
 		19F388DA1BEBB06D00FD22F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19F388D81BEBB06D00FD22F1 /* LaunchScreen.storyboard */; };
 		19F388E51BEBB06D00FD22F1 /* hopperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388E41BEBB06D00FD22F1 /* hopperTests.swift */; };
 		19F388F01BEBB06E00FD22F1 /* hopperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388EF1BEBB06E00FD22F1 /* hopperUITests.swift */; };
+		19F388FE1BEC1F7800FD22F1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388FD1BEC1F7800FD22F1 /* Player.swift */; };
+		19F389011BEC582300FD22F1 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F389001BEC582300FD22F1 /* Level.swift */; };
+		19F389031BED120500FD22F1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F389021BED120500FD22F1 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19B846481C04076D00CE9184 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		19B8464B1C040A7500CE9184 /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		19F388C81BEBB06D00FD22F1 /* hopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F388CB1BEBB06D00FD22F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		19F388CD1BEBB06D00FD22F1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		19F388CF1BEBB06D00FD22F1 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		19F388CD1BEBB06D00FD22F1 /* LevelOne.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelOne.sks; sourceTree = "<group>"; };
+		19F388CF1BEBB06D00FD22F1 /* LevelOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOne.swift; sourceTree = "<group>"; };
 		19F388D11BEBB06D00FD22F1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		19F388D41BEBB06D00FD22F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19F388D61BEBB06D00FD22F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +58,9 @@
 		19F388EB1BEBB06E00FD22F1 /* hopperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hopperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F388EF1BEBB06E00FD22F1 /* hopperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hopperUITests.swift; sourceTree = "<group>"; };
 		19F388F11BEBB06E00FD22F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19F388FD1BEC1F7800FD22F1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		19F389001BEC582300FD22F1 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		19F389021BED120500FD22F1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19B8464A1C040A6200CE9184 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				19B846481C04076D00CE9184 /* Enemy.swift */,
+				19B8464B1C040A7500CE9184 /* Spinner.swift */,
+			);
+			name = Enemies;
+			sourceTree = "<group>";
+		};
 		19F388BF1BEBB06D00FD22F1 = {
 			isa = PBXGroup;
 			children = (
@@ -101,14 +120,16 @@
 		19F388CA1BEBB06D00FD22F1 /* hopper */ = {
 			isa = PBXGroup;
 			children = (
+				19B8464A1C040A6200CE9184 /* Enemies */,
+				19F388FF1BEC580C00FD22F1 /* Levels */,
 				19F388CB1BEBB06D00FD22F1 /* AppDelegate.swift */,
-				19F388CD1BEBB06D00FD22F1 /* GameScene.sks */,
-				19F388CF1BEBB06D00FD22F1 /* GameScene.swift */,
 				19F388D11BEBB06D00FD22F1 /* GameViewController.swift */,
 				19F388D31BEBB06D00FD22F1 /* Main.storyboard */,
 				19F388D61BEBB06D00FD22F1 /* Assets.xcassets */,
 				19F388D81BEBB06D00FD22F1 /* LaunchScreen.storyboard */,
 				19F388DB1BEBB06D00FD22F1 /* Info.plist */,
+				19F388FD1BEC1F7800FD22F1 /* Player.swift */,
+				19F389021BED120500FD22F1 /* Extensions.swift */,
 			);
 			path = hopper;
 			sourceTree = "<group>";
@@ -129,6 +150,16 @@
 				19F388F11BEBB06E00FD22F1 /* Info.plist */,
 			);
 			path = hopperUITests;
+			sourceTree = "<group>";
+		};
+		19F388FF1BEC580C00FD22F1 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				19F388CD1BEBB06D00FD22F1 /* LevelOne.sks */,
+				19F388CF1BEBB06D00FD22F1 /* LevelOne.swift */,
+				19F389001BEC582300FD22F1 /* Level.swift */,
+			);
+			name = Levels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,7 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19F388CE1BEBB06D00FD22F1 /* GameScene.sks in Resources */,
+				19F388CE1BEBB06D00FD22F1 /* LevelOne.sks in Resources */,
 				19F388DA1BEBB06D00FD22F1 /* LaunchScreen.storyboard in Resources */,
 				19F388D71BEBB06D00FD22F1 /* Assets.xcassets in Resources */,
 				19F388D51BEBB06D00FD22F1 /* Main.storyboard in Resources */,
@@ -263,9 +294,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19F388D01BEBB06D00FD22F1 /* GameScene.swift in Sources */,
+				19B846491C04076D00CE9184 /* Enemy.swift in Sources */,
+				19F388FE1BEC1F7800FD22F1 /* Player.swift in Sources */,
+				19F389031BED120500FD22F1 /* Extensions.swift in Sources */,
+				19F388D01BEBB06D00FD22F1 /* LevelOne.swift in Sources */,
 				19F388D21BEBB06D00FD22F1 /* GameViewController.swift in Sources */,
+				19F389011BEC582300FD22F1 /* Level.swift in Sources */,
 				19F388CC1BEBB06D00FD22F1 /* AppDelegate.swift in Sources */,
+				19B8464C1C040A7500CE9184 /* Spinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +530,7 @@
 				19F388F61BEBB06E00FD22F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		19F388F71BEBB06E00FD22F1 /* Build configuration list for PBXNativeTarget "hopperTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +539,7 @@
 				19F388F91BEBB06E00FD22F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		19F388FA1BEBB06E00FD22F1 /* Build configuration list for PBXNativeTarget "hopperUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +548,7 @@
 				19F388FC1BEBB06E00FD22F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
