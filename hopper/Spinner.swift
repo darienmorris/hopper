@@ -11,13 +11,18 @@ import SpriteKit
 
 class Spinner: Enemy {
     
-    override init(scene: LevelScene, node: SKNode) {
-        super.init(scene: scene, node: node)
+    override init(scene: LevelScene, sprite: SKSpriteNode) {
+        super.init(scene: scene, sprite: sprite)
+
+        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+        sprite.physicsBody?.categoryBitMask = BodyType.spinner.rawValue
+        sprite.physicsBody?.contactTestBitMask = BodyType.player.rawValue
+        sprite.physicsBody?.collisionBitMask = 0
         
         
         let duration: Double = 1
-        node.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.moveToY(self.node.position.y - 100, duration:duration), SKAction.moveToY(self.node.position.y + 100, duration:duration)])))
+        sprite.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.moveToY(self.sprite.position.y - 100, duration:duration), SKAction.moveToY(self.sprite.position.y + 100, duration:duration)])))
         
-        node.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(-1, duration: 0.25)))
+        sprite.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(-1, duration: 0.25)))
     }
 }

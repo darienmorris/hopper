@@ -12,17 +12,8 @@ import SpriteKit
 class GameScene: LevelScene {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
+        levelName = "LevelOne"
         
-        var startX: CGFloat = CGRectGetMidX(self.frame)
-        var startY: CGFloat = CGRectGetMidY(self.frame)
-        
-        if let tileOne = childNodeWithName("tile-1") {
-            startX = tileOne.position.x
-            startY = tileOne.position.y
-        }
-        
-        self.player = Player(scene: self)
-        self.player.addToScene(self, x: startX, y: startY)
         
     }
     

@@ -11,13 +11,19 @@ import SpriteKit
 
 class Enemy {
     
-    var node: SKNode
+    var sprite: SKSpriteNode
     var scene: LevelScene
     
-    init(scene: LevelScene, node: SKNode) {
-        self.node = node
+    init(scene: LevelScene, sprite: SKSpriteNode) {
+        self.sprite = sprite
         self.scene = scene
-        
+    }
+    
+    func pause() {
+        self.sprite.removeAllActions()
+    }
+    
+    func resume() {
         
     }
 }

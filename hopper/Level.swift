@@ -9,28 +9,42 @@
 import Foundation
 import SpriteKit
 
-class LevelScene: SKScene {
+
+enum BodyType:UInt32 {
+    case player = 1
+    case spinner = 2
+    case someOtherThing = 4
+}
+
+class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     var player: Player!
     var tileNumber = 1
     var enemies: [Enemy] = []
-    
-
+    var levelName = ""
     
     override func didMoveToView(view: SKView) {
         initGestures(view)
-        initCamera()
+        
         initEnemies()
+        initPhysics()
+        initPlayer()
+        
+        initCamera()
         
         
+        
+        let victoryMenu = VictoryMenu()
+        victoryMenu.render(self)
+        addChild(victoryMenu)
     }
     
    
     func initCamera() {
-        print("trying camera")
         if let camera:SKCameraNode = self.childNodeWithName("Camera") as? SKCameraNode {
-            print("Camera!")
+            camera.position = CGPoint(x: player.sprite.position.x, y:player.sprite.position.y)
             self.camera = camera
+            
         }
     }
     
@@ -46,8 +60,62 @@ class LevelScene: SKScene {
     func initEnemies() {
         self.enumerateChildNodesWithName("spinner-*") {
             node, stop in
-            self.enemies.append(Spinner(scene: self, node: node))
+            let enemySprite: SKSpriteNode = node as! SKSpriteNode
+            self.enemies.append(Spinner(scene: self, sprite: enemySprite))
         }
+    }
+    
+    func initPhysics() {
+        physicsWorld.gravity = CGVector(dx: 0,dy: 0)
+        physicsWorld.contactDelegate = self
+    }
+    
+    func initPlayer() {
+        var startX: CGFloat = CGRectGetMidX(self.frame)
+        var startY: CGFloat = CGRectGetMidY(self.frame)
+
+        if let tileOne = childNodeWithName("tile-1") {
+            startX = tileOne.position.x
+            startY = tileOne.position.y
+        }
+        
+        self.player = Player(scene: self)
+        self.player.addToScene(self, x: startX, y: startY)
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        // Called automatically when two objects begin contact
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        switch contactMask {
+        case BodyType.player.rawValue | BodyType.spinner.rawValue:
+            //either the contact mask was the player or spinner
+            if player.isAlive {
+                runDeathSequence()
+                pauseEnemies()
+            }
+        default:
+            return
+        }
+        
+    }
+    
+    func pauseEnemies() {
+        for enemy in enemies {
+            enemy.pause()
+        }
+    }
+    
+    func runDeathSequence() {
+        player.die()
+        camera!.removeAllActions()
+        runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.runBlock({
+            self.resetLevel()
+        })]))
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
     }
     
     func swipedUp(sender:UISwipeGestureRecognizer){
@@ -75,9 +143,20 @@ class LevelScene: SKScene {
         }
     }
     
-    func getNextTile() -> SKNode? {
+    func setNextTile() {
         tileNumber++
-        if let tile = childNodeWithName("tile-\(tileNumber)") {
+    }
+    
+    func getNextTile() -> SKNode? {
+        if let tile = childNodeWithName("tile-\(tileNumber + 1)") {
+            return tile
+        }
+        
+        return nil
+    }
+    
+    func getFirstTile() -> SKNode? {
+        if let tile = childNodeWithName("tile-1") {
             return tile
         }
         
@@ -85,7 +164,18 @@ class LevelScene: SKScene {
     }
     
     func resetLevel() {
-        tileNumber = 0
+        if let scene = GameScene(fileNamed:levelName) {
+            scene.scaleMode = .AspectFill
+            let skView = self.view! as SKView
+            scene.size = skView.bounds.size
+            self.view?.presentScene(scene)
+        }
+    }
+    
+    func checkForVictory() {
+        if getNextTile() == nil {
+            resetLevel()
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
