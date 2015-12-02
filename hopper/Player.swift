@@ -17,7 +17,7 @@ class Player {
     var isAlive: Bool = true
     
     init(scene: LevelScene) {
-        sprite = SKSpriteNode(imageNamed:"c-player-1")
+        sprite = SKSpriteNode(imageNamed:"player-default")
         
         // a lower collision size is more forgiving for players
         let collisionSize: CGFloat = 0.85
@@ -43,7 +43,7 @@ class Player {
     }
     
     func moveForward() {
-        if isMoving {
+        if isMoving || !isAlive {
             return;
         }
         
@@ -71,9 +71,6 @@ class Player {
             
             sprite.runAction(actionMoveX)
             sprite.runAction(SKAction.sequence([actionMoveUpY, actionMoveDownY, actionMoveComplete]))
-        }
-        else {
-            scene.resetLevel()
         }
     }
  

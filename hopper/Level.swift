@@ -22,6 +22,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     var tileNumber = 1
     var enemies: [Enemy] = []
     var levelName = ""
+    var cameraOffset: CGSize = CGSize(width: 100, height: 0)
     
     override func didMoveToView(view: SKView) {
         initGestures(view)
@@ -34,15 +35,13 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        let victoryMenu = VictoryMenu()
-        victoryMenu.render(self)
-        addChild(victoryMenu)
+        
     }
     
    
     func initCamera() {
         if let camera:SKCameraNode = self.childNodeWithName("Camera") as? SKCameraNode {
-            camera.position = CGPoint(x: player.sprite.position.x, y:player.sprite.position.y)
+            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y)
             self.camera = camera
             
         }
@@ -128,7 +127,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func moveCamera(position: CGPoint, speed: Double) {
         if let camera = self.camera {
-            camera.runAction(SKAction.moveToX(position.x, duration:speed))
+            camera.runAction(SKAction.moveToX(position.x + cameraOffset.width, duration:speed))
         }
     }
     
@@ -174,8 +173,16 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func checkForVictory() {
         if getNextTile() == nil {
-            resetLevel()
+            openVictoryMenu()
         }
+    }
+    
+    func openVictoryMenu() {
+        let victoryMenu = VictoryMenu()
+        victoryMenu.setup(self, onReset: {
+            self.resetLevel()
+        })
+        addChild(victoryMenu)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
