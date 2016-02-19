@@ -14,16 +14,17 @@ class VictoryMenu: SKNode {
     var titleLabel: SKLabelNode
     var closeButton: SKSpriteNode
     var container: SKSpriteNode
+    var overlay: SKSpriteNode
     var onReset: (() -> Void)?
     
     override init() {
         
         titleLabel = SKLabelNode(text: "Victory!")
-//        closeButton = SKSpriteNode(color: SKColor.redColor(), size: CGSize(width: 100, height: 44))
         closeButton = SKSpriteNode(imageNamed: "button-retry")
         closeButton.name = "button-retry"
-        container = SKSpriteNode(color: SKColor.darkGrayColor(), size: CGSize(width: 100, height: 100))
-        
+        container = SKSpriteNode(imageNamed: "victory-menu")
+        overlay = SKSpriteNode(color: SKColor.darkGrayColor(), size: CGSize(width: 0, height: 0))
+        overlay.alpha = 0
         super.init()
 
         zPosition = 100
@@ -34,15 +35,44 @@ class VictoryMenu: SKNode {
     func setup(scene: SKScene, onReset: () -> Void) {
         self.onReset = onReset
         let frame: CGRect = scene.camera!.frame
-        container.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        container.size = CGSize(width: scene.size.width / 2, height: scene.size.height / 2)
+        
+        overlay.position = CGPoint(x: frame.origin.x, y: frame.origin.y)
+        overlay.size = CGSize(width: scene.size.width, height: scene.size.height)
+        addChild(overlay)
+        
+        container.position = CGPoint(x: CGRectGetMidX(frame), y: frame.origin.y - container.size.height)
+        container.size = CGSize(width: scene.size.width / 2, height: scene.size.width / 2 * 0.66)
         
         titleLabel.position = CGPoint(x: 0, y: container.size.height / 2 - 50)
+        titleLabel.zPosition = 1
         container.addChild(titleLabel)
         
         closeButton.position = CGPoint(x:0, y: -(container.size.height / 2) + closeButton.size.height)
+        closeButton.zPosition = 1
         container.addChild(closeButton)
         addChild(container)
+        
+        
+        print("container \(container.zPosition) button \(closeButton.zPosition)")
+        
+        
+        fadeOverlayIn()
+        moveContainerIn(frame)
+        
+        
+        
+    }
+    
+    func fadeOverlayIn() {
+        let overlayFadeIn = SKAction.fadeAlphaTo(0.7, duration: 0.20)
+        overlayFadeIn.timingMode = SKActionTimingMode.EaseIn
+        overlay.runAction(overlayFadeIn)
+    }
+    
+    func moveContainerIn(frame: CGRect) {
+        let containerAction = SKAction.moveToY(CGRectGetMidY(frame), duration: 0.4)
+        containerAction.timingMode = SKActionTimingMode.EaseInEaseOut
+        container.runAction(containerAction)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

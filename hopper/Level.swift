@@ -33,9 +33,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         
         initCamera()
         
-        
-        
-        
+//        openVictoryMenu()
     }
     
    
@@ -164,7 +162,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func resetLevel() {
         if let scene = GameScene(fileNamed:levelName) {
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .ResizeFill
             let skView = self.view! as SKView
             scene.size = skView.bounds.size
             self.view?.presentScene(scene)
