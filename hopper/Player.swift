@@ -17,6 +17,7 @@ class Player {
     var isAlive: Bool = true
     
     init(scene: LevelScene) {
+
         sprite = SKSpriteNode(imageNamed:"player-default")
         
         // a lower collision size is more forgiving for players

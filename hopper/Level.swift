@@ -23,6 +23,9 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     var enemies: [Enemy] = []
     var levelName = ""
     var cameraOffset: CGSize = CGSize(width: 100, height: 0)
+    var gameTimer: GameTimer = GameTimer()
+    
+
     
     override func didMoveToView(view: SKView) {
         initGestures(view)
@@ -33,7 +36,16 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         
         initCamera()
         
+        initTimer()
+        
 //        openVictoryMenu()
+    }
+    
+    func initTimer() {
+        gameTimer.position = CGPoint(x: player.sprite.position.x - cameraOffset.width * 1.75, y: camera!.position.y + UIScreen.mainScreen().bounds.size.height / 3)
+        
+
+        addChild(gameTimer)
     }
     
    
@@ -106,7 +118,9 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     func runDeathSequence() {
         player.die()
         camera!.removeAllActions()
-        runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.runBlock({
+        gameTimer.removeAllActions()
+        gameTimer.pauseTime()
+        runAction(SKAction.sequence([SKAction.waitForDuration(0.75), SKAction.runBlock({
             self.resetLevel()
         })]))
     }
@@ -126,11 +140,13 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     func moveCamera(position: CGPoint, speed: Double) {
         if let camera = self.camera {
             camera.runAction(SKAction.moveToX(position.x + cameraOffset.width, duration:speed))
+            gameTimer.runAction(SKAction.moveToX(position.x - cameraOffset.width * 1.75 , duration:speed))
         }
     }
+
     
     override func update(currentTime: CFTimeInterval) {
-        
+  
     }
     
     func printAllNodes() {
@@ -171,6 +187,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func checkForVictory() {
         if getNextTile() == nil {
+            gameTimer.pauseTime()
             openVictoryMenu()
         }
     }

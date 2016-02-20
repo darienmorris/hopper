@@ -22,6 +22,8 @@
 		19F388FE1BEC1F7800FD22F1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F388FD1BEC1F7800FD22F1 /* Player.swift */; };
 		19F389011BEC582300FD22F1 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F389001BEC582300FD22F1 /* Level.swift */; };
 		19F389031BED120500FD22F1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F389021BED120500FD22F1 /* Extensions.swift */; };
+		19FCE4751C77B6CB009339D6 /* kenvector_future.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19FCE4741C77B6C0009339D6 /* kenvector_future.ttf */; };
+		19FCE4781C786052009339D6 /* GameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FCE4771C786052009339D6 /* GameTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		19F388FD1BEC1F7800FD22F1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		19F389001BEC582300FD22F1 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		19F389021BED120500FD22F1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		19FCE4741C77B6C0009339D6 /* kenvector_future.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kenvector_future.ttf; sourceTree = "<group>"; };
+		19FCE4771C786052009339D6 /* GameTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,7 @@
 		19F388CA1BEBB06D00FD22F1 /* hopper */ = {
 			isa = PBXGroup;
 			children = (
+				19FCE4761C786048009339D6 /* Game */,
 				19B8464D1C0B9C0200CE9184 /* Menus */,
 				19B8464A1C040A6200CE9184 /* Enemies */,
 				19F388FF1BEC580C00FD22F1 /* Levels */,
@@ -141,6 +146,7 @@
 				19F388DB1BEBB06D00FD22F1 /* Info.plist */,
 				19F388FD1BEC1F7800FD22F1 /* Player.swift */,
 				19F389021BED120500FD22F1 /* Extensions.swift */,
+				19FCE4731C77B6AF009339D6 /* Supporting Files */,
 			);
 			path = hopper;
 			sourceTree = "<group>";
@@ -171,6 +177,22 @@
 				19F389001BEC582300FD22F1 /* Level.swift */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		19FCE4731C77B6AF009339D6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				19FCE4741C77B6C0009339D6 /* kenvector_future.ttf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19FCE4761C786048009339D6 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				19FCE4771C786052009339D6 /* GameTimer.swift */,
+			);
+			name = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +304,7 @@
 				19F388DA1BEBB06D00FD22F1 /* LaunchScreen.storyboard in Resources */,
 				19F388D71BEBB06D00FD22F1 /* Assets.xcassets in Resources */,
 				19F388D51BEBB06D00FD22F1 /* Main.storyboard in Resources */,
+				19FCE4751C77B6CB009339D6 /* kenvector_future.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +332,7 @@
 				19B846491C04076D00CE9184 /* Enemy.swift in Sources */,
 				19F388FE1BEC1F7800FD22F1 /* Player.swift in Sources */,
 				19F389031BED120500FD22F1 /* Extensions.swift in Sources */,
+				19FCE4781C786052009339D6 /* GameTimer.swift in Sources */,
 				19F388D01BEBB06D00FD22F1 /* LevelOne.swift in Sources */,
 				19B8464F1C0B9C1100CE9184 /* VictoryMenu.swift in Sources */,
 				19F388D21BEBB06D00FD22F1 /* GameViewController.swift in Sources */,

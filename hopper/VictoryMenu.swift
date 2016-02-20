@@ -13,6 +13,8 @@ class VictoryMenu: SKNode {
     
     var titleLabel: SKLabelNode
     var closeButton: SKSpriteNode
+    var menuButton: SKSpriteNode
+    var playButton: SKSpriteNode
     var container: SKSpriteNode
     var overlay: SKSpriteNode
     var onReset: (() -> Void)?
@@ -20,8 +22,17 @@ class VictoryMenu: SKNode {
     override init() {
         
         titleLabel = SKLabelNode(text: "Victory!")
+        titleLabel.fontName = "KenVector-Future"
+        
         closeButton = SKSpriteNode(imageNamed: "button-retry")
         closeButton.name = "button-retry"
+        
+        menuButton = SKSpriteNode(imageNamed: "button-menu")
+        menuButton.name = "button-menu"
+        
+        playButton = SKSpriteNode(imageNamed: "button-play")
+        playButton.name = "button-play"
+        
         container = SKSpriteNode(imageNamed: "victory-menu")
         overlay = SKSpriteNode(color: SKColor.darkGrayColor(), size: CGSize(width: 0, height: 0))
         overlay.alpha = 0
@@ -47,13 +58,18 @@ class VictoryMenu: SKNode {
         titleLabel.zPosition = 1
         container.addChild(titleLabel)
         
-        closeButton.position = CGPoint(x:0, y: -(container.size.height / 2) + closeButton.size.height)
+        closeButton.position = CGPoint(x:-closeButton.size.width - 20, y: -(container.size.height / 2) + closeButton.size.height)
         closeButton.zPosition = 1
         container.addChild(closeButton)
+        
+        menuButton.position = CGPoint(x:0, y: -(container.size.height / 2) + menuButton.size.height)
+        menuButton.zPosition = 1
+        container.addChild(menuButton)
+        
+        playButton.position = CGPoint(x:playButton.size.width + 20, y: -(container.size.height / 2) + playButton.size.height)
+        playButton.zPosition = 1
+        container.addChild(playButton)
         addChild(container)
-        
-        
-        print("container \(container.zPosition) button \(closeButton.zPosition)")
         
         
         fadeOverlayIn()
@@ -82,7 +98,7 @@ class VictoryMenu: SKNode {
             let nodes = self.nodesAtPoint(touch.locationInNode(self))
             for node in nodes
             {
-                if node.name == "button-retry"
+                if node.name == "button-retry" || node.name == "button-menu" || node.name == "button-play"
                 {
                     // retry the level!
                     self.onReset!()
