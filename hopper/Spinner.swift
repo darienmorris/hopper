@@ -25,8 +25,6 @@ class Spinner: Enemy {
         let duration: Double = 1
         sprite.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.moveToY(self.sprite.position.y - 100, duration:duration), SKAction.moveToY(self.sprite.position.y + 100, duration:duration)])))
         
-        //sprite.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(-1, duration: 0.25)))
-        
         initAnimation();
         startAnimation();
     }
@@ -36,7 +34,6 @@ class Spinner: Enemy {
         var frames = [SKTexture]()
         
         let numImages = animatedAtlas.textureNames.count
-        print("Num images: \(numImages)")
         for var i=1; i<=numImages; i++ {
             let textureName = "e-spinner-\(i)"
             frames.append(animatedAtlas.textureNamed(textureName))
@@ -46,8 +43,6 @@ class Spinner: Enemy {
     }
     
     func startAnimation() {
-        print("animationFrames \(animationFrames.count)")
-        //This is our general runAction method to make our bear walk.
         sprite.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(animationFrames,
                 timePerFrame: 0.05,

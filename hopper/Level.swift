@@ -37,8 +37,6 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         initCamera()
         
         initTimer()
-        
-//        openVictoryMenu()
     }
     
     func initTimer() {
@@ -194,7 +192,8 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func openVictoryMenu() {
         let victoryMenu = VictoryMenu()
-        victoryMenu.setup(self, onReset: {
+        let starTimes: [Double] = [0, 13, 7]
+        victoryMenu.setup(self, gameTime: gameTimer.timeValue, starTimes: starTimes, onReset: {
             self.resetLevel()
         })
         addChild(victoryMenu)

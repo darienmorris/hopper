@@ -17,6 +17,7 @@ class GameTimer: SKNode {
     
     override init() {
         super.init()
+        printFonts()
         
         timerText.fontName = "KenVector-Future"
         timerText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
@@ -47,6 +48,15 @@ class GameTimer: SKNode {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func printFonts() {
+        for familyName in UIFont.familyNames() {
+            print("\n-- \(familyName) \n")
+            for fontName in UIFont.fontNamesForFamilyName(familyName) {
+                print(fontName)
+            }
+        }
     }
     
 

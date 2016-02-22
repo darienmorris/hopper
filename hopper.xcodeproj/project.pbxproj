@@ -67,6 +67,8 @@
 		19F389021BED120500FD22F1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		19FCE4741C77B6C0009339D6 /* kenvector_future.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kenvector_future.ttf; sourceTree = "<group>"; };
 		19FCE4771C786052009339D6 /* GameTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimer.swift; sourceTree = "<group>"; };
+		19FCE47A1C7A3183009339D6 /* Grandstander-clean.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Grandstander-clean.otf"; sourceTree = "<group>"; };
+		19FCE47B1C7A91B6009339D6 /* Grandstander-clean.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Grandstander-clean.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,8 @@
 		19FCE4731C77B6AF009339D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				19FCE47B1C7A91B6009339D6 /* Grandstander-clean.ttf */,
+				19FCE47A1C7A3183009339D6 /* Grandstander-clean.otf */,
 				19FCE4741C77B6C0009339D6 /* kenvector_future.ttf */,
 			);
 			name = "Supporting Files";
