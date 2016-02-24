@@ -50,7 +50,7 @@ class Player {
         
         if let nextTile = scene.getNextTile() {
             let jumpHeight: CGFloat = 20
-            let jumpDuration = 0.25
+            let jumpDuration = 0.20
             
             isMoving = true
         
@@ -93,12 +93,24 @@ class Player {
     }
     
     func moveUp() {
-        let moveUp = SKAction.moveToY(sprite.position.y + 75, duration: 0.20)
+        if isMoving || !isAlive {
+            return;
+        }
+        
+        isMoving = true
+        let jumpDuration = 0.32
+        let moveUp = SKAction.moveToY(sprite.position.y + 100, duration: jumpDuration / 2)
         moveUp.timingMode = .EaseOut
         
-        let moveDown = SKAction.moveToY(sprite.position.y, duration: 0.20)
+        let moveDown = SKAction.moveToY(sprite.position.y, duration: jumpDuration / 2)
         moveDown.timingMode = .EaseIn
         
-        sprite.runAction(SKAction.sequence([moveUp, moveDown]))
+        let moveUpComplete = SKAction.runBlock({self.moveUpComplete()})
+        
+        sprite.runAction(SKAction.sequence([moveUp, moveDown, moveUpComplete]))
+    }
+    
+    func moveUpComplete() {
+        isMoving = false
     }
 }
