@@ -93,7 +93,12 @@ class Player {
     }
     
     func moveUp() {
-//        let action = SKAction.scaleBy(2, duration: 1)
-//        sprite.runAction(SKAction.repeatActionForever(action))
+        let moveUp = SKAction.moveToY(sprite.position.y + 75, duration: 0.20)
+        moveUp.timingMode = .EaseOut
+        
+        let moveDown = SKAction.moveToY(sprite.position.y, duration: 0.20)
+        moveDown.timingMode = .EaseIn
+        
+        sprite.runAction(SKAction.sequence([moveUp, moveDown]))
     }
 }
