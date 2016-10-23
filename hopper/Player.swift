@@ -15,6 +15,7 @@ class Player {
     var scene: LevelScene
     var isMoving: Bool = false
     var isAlive: Bool = true
+    var positionOnTile: CGPoint = CGPoint(x: 0, y: 0)
     
     init(scene: LevelScene) {
 
@@ -41,6 +42,7 @@ class Player {
         sprite.name = "Darien"
         sprite.zPosition = 10
         scene.addChild(sprite)
+        positionOnTile = sprite.position
     }
     
     func moveForward() {
@@ -49,8 +51,8 @@ class Player {
         }
         
         if let nextTile = scene.getNextTile() {
-            let jumpHeight: CGFloat = 20
-            let jumpDuration = 0.20
+            let jumpHeight: CGFloat = 15
+            let jumpDuration = 0.15
             
             isMoving = true
         
@@ -79,6 +81,7 @@ class Player {
         isMoving = false
         scene.setNextTile()
         scene.checkForVictory()
+        positionOnTile = sprite.position
     }
     
     func die() {
@@ -90,6 +93,21 @@ class Player {
     
     func stopMoving() {
         sprite.removeAllActions()
+    }
+    
+    func bounce() {
+        print("BOUNCE!")
+        isMoving = true
+        let jumpDuration = 0.25
+        let moveUp = SKAction.moveTo(y: sprite.position.y + 30, duration: jumpDuration / 2)
+        moveUp.timingMode = .easeOut
+         
+        let moveDown = SKAction.moveTo(y: positionOnTile.y, duration: jumpDuration / 2)
+        moveDown.timingMode = .easeIn
+        
+        let moveUpComplete = SKAction.run({self.moveUpComplete()})
+        
+        sprite.run(SKAction.sequence([moveUp, moveDown, moveUpComplete]))
     }
     
     func moveUp() {

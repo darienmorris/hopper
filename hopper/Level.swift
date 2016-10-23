@@ -122,13 +122,17 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
                 runDeathSequence()
             }
             else if enemyBody.categoryBitMask == BodyType.wingMan.rawValue {
-                print("COLLISION")
                 if let enemyNode = enemyBody.node as? SKSpriteNode, let playerNode = playerBody.node as? SKSpriteNode {
-                    print(playerNode.position, playerNode.size, enemyNode.position, enemyNode.size)
+
+                    print("COLLISION", enemyNode.name, findEnemyByName(name: enemyNode.name!))
                     if playerNode.position.y - playerNode.size.height < enemyNode.position.y - enemyNode.size.height / 2 {
                         runDeathSequence()
                     }
                     else {
+                        if let wingMan = findEnemyByName(name: enemyNode.name!) as! WingMan? {
+                            player.bounce()
+                            wingMan.die()
+                        }
                     }
                 }
             }
@@ -141,6 +145,16 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         for enemy in enemies {
             enemy.pause()
         }
+    }
+    
+    func findEnemyByName(name: String) -> Enemy? {
+        for enemy in enemies {
+            if enemy.sprite.name == name {
+                return enemy
+            }
+        }
+        
+        return nil
     }
     
     func runDeathSequence() {

@@ -35,7 +35,7 @@ class WingMan: Enemy {
         var frames = [SKTexture]()
         
         let numImages = animatedAtlas.textureNames.count
-        for i in 1..<numImages+1 {
+        for i in 0..<numImages {
             let textureName = "e-wing-man-\(i)"
             frames.append(animatedAtlas.textureNamed(textureName))
         }
@@ -50,5 +50,13 @@ class WingMan: Enemy {
                              resize: false,
                              restore: true)),
                    withKey:"spinnerAnimation")
+    }
+    
+    func die() {
+        print("DYING!")
+        sprite.physicsBody = nil
+        sprite.removeAllActions()
+        sprite.run(SKAction.moveTo(y:-100, duration: 0.5))
+        
     }
 }
