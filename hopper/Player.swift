@@ -31,12 +31,12 @@ class Player {
         self.scene = scene
     }
     
-    func setPosition(x: CGFloat, y: CGFloat) {
+    func setPosition(_ x: CGFloat, y: CGFloat) {
         sprite.position = CGPoint(x: x, y: y)
 
     }
     
-    func addToScene(scene: SKScene, x: CGFloat, y: CGFloat) {
+    func addToScene(_ scene: SKScene, x: CGFloat, y: CGFloat) {
         setPosition(x, y:y + sprite.size.height / 2)
         sprite.name = "Darien"
         sprite.zPosition = 10
@@ -45,7 +45,7 @@ class Player {
     
     func moveForward() {
         if isMoving || !isAlive {
-            return;
+            return
         }
         
         if let nextTile = scene.getNextTile() {
@@ -57,21 +57,21 @@ class Player {
             self.scene.moveCamera(nextTile.position, speed: jumpDuration)
             
             
-            let actionMoveX = SKAction.moveByX(nextTile.position.x - sprite.position.x, y: 0, duration: jumpDuration)
+            let actionMoveX = SKAction.moveBy(x: nextTile.position.x - sprite.position.x, y: 0, duration: jumpDuration)
             
             // Increases jump height based on whether the X or Y difference is greater
             let midPointY:CGFloat = max(nextTile.position.y - sprite.position.y + jumpHeight + sprite.size.height / 2, (nextTile.position.x - sprite.position.x) * 0.15 + jumpHeight)
             
-            let actionMoveUpY = SKAction.moveByX(0, y: midPointY, duration: jumpDuration/2)
-            actionMoveUpY.timingMode = SKActionTimingMode.EaseOut
+            let actionMoveUpY = SKAction.moveBy(x: 0, y: midPointY, duration: jumpDuration/2)
+            actionMoveUpY.timingMode = SKActionTimingMode.easeOut
             
-            let actionMoveDownY = SKAction.moveByX(0, y: nextTile.position.y - sprite.position.y - midPointY + sprite.size.height / 2, duration: jumpDuration/2)
-            actionMoveDownY.timingMode = SKActionTimingMode.EaseIn
+            let actionMoveDownY = SKAction.moveBy(x: 0, y: nextTile.position.y - sprite.position.y - midPointY + sprite.size.height / 2, duration: jumpDuration/2)
+            actionMoveDownY.timingMode = SKActionTimingMode.easeIn
             
-            let actionMoveComplete = SKAction.runBlock({self.moveComplete()})
+            let actionMoveComplete = SKAction.run({self.moveComplete()})
             
-            sprite.runAction(actionMoveX)
-            sprite.runAction(SKAction.sequence([actionMoveUpY, actionMoveDownY, actionMoveComplete]))
+            sprite.run(actionMoveX)
+            sprite.run(SKAction.sequence([actionMoveUpY, actionMoveDownY, actionMoveComplete]))
         }
     }
  
@@ -94,20 +94,20 @@ class Player {
     
     func moveUp() {
         if isMoving || !isAlive {
-            return;
+            return
         }
         
         isMoving = true
         let jumpDuration = 0.32
-        let moveUp = SKAction.moveToY(sprite.position.y + 100, duration: jumpDuration / 2)
-        moveUp.timingMode = .EaseOut
+        let moveUp = SKAction.moveTo(y: sprite.position.y + 100, duration: jumpDuration / 2)
+        moveUp.timingMode = .easeOut
         
-        let moveDown = SKAction.moveToY(sprite.position.y, duration: jumpDuration / 2)
-        moveDown.timingMode = .EaseIn
+        let moveDown = SKAction.moveTo(y: sprite.position.y, duration: jumpDuration / 2)
+        moveDown.timingMode = .easeIn
         
-        let moveUpComplete = SKAction.runBlock({self.moveUpComplete()})
+        let moveUpComplete = SKAction.run({self.moveUpComplete()})
         
-        sprite.runAction(SKAction.sequence([moveUp, moveDown, moveUpComplete]))
+        sprite.run(SKAction.sequence([moveUp, moveDown, moveUpComplete]))
     }
     
     func moveUpComplete() {

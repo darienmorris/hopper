@@ -12,18 +12,18 @@ import SpriteKit
 class GameTimer: SKNode {
     var timerText: SKLabelNode = SKLabelNode(text: "0.0")
     var timeValue: Double = 0.0
-    var timer: NSTimer!
+    var timer: Timer!
     var isRunning: Bool = true
     
     override init() {
         super.init()
-        printFonts()
+//        printFonts()
         
         timerText.fontName = "KenVector-Future"
-        timerText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        timerText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         addChild(timerText)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "addTime", userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(GameTimer.addTime), userInfo: nil, repeats: true)
     }
     
     func addTime() {
@@ -33,8 +33,8 @@ class GameTimer: SKNode {
         }
     }
     
-    func setTime(time: Double) {
-        timeValue = timeValue.roundToPlaces(1)
+    func setTime(_ time: Double) {
+        timeValue = Double.roundToPlaces(num: timeValue, places: 1)
         timerText.text = timeValue.description
     }
     
@@ -51,9 +51,9 @@ class GameTimer: SKNode {
     }
     
     func printFonts() {
-        for familyName in UIFont.familyNames() {
+        for familyName in UIFont.familyNames {
             print("\n-- \(familyName) \n")
-            for fontName in UIFont.fontNamesForFamilyName(familyName) {
+            for fontName in UIFont.fontNames(forFamilyName: familyName) {
                 print(fontName)
             }
         }

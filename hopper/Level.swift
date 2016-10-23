@@ -13,6 +13,7 @@ import SpriteKit
 enum BodyType:UInt32 {
     case player = 1
     case spinner = 2
+    case wingMan = 3
     case someOtherThing = 4
 }
 
@@ -27,7 +28,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
 
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         initGestures(view)
         
         initEnemies()
@@ -40,7 +41,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initTimer() {
-        gameTimer.position = CGPoint(x: player.sprite.position.x - cameraOffset.width * 1.75, y: camera!.position.y + UIScreen.mainScreen().bounds.size.height / 3)
+        gameTimer.position = CGPoint(x: player.sprite.position.x - cameraOffset.width * 1.75, y: camera!.position.y + UIScreen.main.bounds.size.height / 3)
         
 
         addChild(gameTimer)
@@ -48,27 +49,33 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
    
     func initCamera() {
-        if let camera:SKCameraNode = self.childNodeWithName("Camera") as? SKCameraNode {
+        if let camera:SKCameraNode = self.childNode(withName: "Camera") as? SKCameraNode {
             camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y)
             self.camera = camera
             
         }
     }
     
-    func initGestures(view: SKView) {
-        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedUp:"))
-        swipeUp.direction = .Up
+    func initGestures(_ view: SKView) {
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(LevelScene.swipedUp(_:)))
+        swipeUp.direction = .up
         view.addGestureRecognizer(swipeUp)
         
-        let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tap:"))
+        let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LevelScene.tap(_:)))
         view.addGestureRecognizer(tap)
     }
     
     func initEnemies() {
-        self.enumerateChildNodesWithName("spinner-*") {
+        self.enumerateChildNodes(withName: "spinner-*") {
             node, stop in
             let enemySprite: SKSpriteNode = node as! SKSpriteNode
             self.enemies.append(Spinner(scene: self, sprite: enemySprite))
+        }
+        
+        self.enumerateChildNodes(withName: "wing-man-*") {
+            node, stop in
+            let enemySprite: SKSpriteNode = node as! SKSpriteNode
+            self.enemies.append(WingMan(scene: self, sprite: enemySprite))
         }
     }
     
@@ -78,10 +85,10 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initPlayer() {
-        var startX: CGFloat = CGRectGetMidX(self.frame)
-        var startY: CGFloat = CGRectGetMidY(self.frame)
+        var startX: CGFloat = self.frame.midX
+        var startY: CGFloat = self.frame.midY
 
-        if let tileOne = childNodeWithName("tile-1") {
+        if let tileOne = childNode(withName: "tile-1") {
             startX = tileOne.position.x
             startY = tileOne.position.y
         }
@@ -90,19 +97,42 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         self.player.addToScene(self, x: startX, y: startY)
     }
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         // Called automatically when two objects begin contact
-        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        var enemyBody: SKPhysicsBody
+        var playerBody: SKPhysicsBody
         
-        switch contactMask {
-        case BodyType.player.rawValue | BodyType.spinner.rawValue:
-            //either the contact mask was the player or spinner
-            if player.isAlive {
-                runDeathSequence()
-                pauseEnemies()
-            }
-        default:
+        
+        
+        if contact.bodyA.categoryBitMask == BodyType.player.rawValue {
+            playerBody = contact.bodyA
+            enemyBody = contact.bodyB
+        }
+        else if contact.bodyB.categoryBitMask == BodyType.player.rawValue {
+            playerBody = contact.bodyB
+            enemyBody = contact.bodyA
+        }
+        else {
             return
+        }
+
+        // This won't be scalable.. maybe implement a contact method for each enemy, and pass in the two sprites and return who wins the contact
+        if player.isAlive {
+            if enemyBody.categoryBitMask == BodyType.spinner.rawValue {
+                runDeathSequence()
+            }
+            else if enemyBody.categoryBitMask == BodyType.wingMan.rawValue {
+                print("COLLISION")
+                if let enemyNode = enemyBody.node as? SKSpriteNode, let playerNode = playerBody.node as? SKSpriteNode {
+                    print(playerNode.position, playerNode.size, enemyNode.position, enemyNode.size)
+                    if playerNode.position.y - playerNode.size.height < enemyNode.position.y - enemyNode.size.height / 2 {
+                        runDeathSequence()
+                    }
+                    else {
+                    }
+                }
+            }
+            
         }
         
     }
@@ -114,52 +144,53 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func runDeathSequence() {
+        pauseEnemies()
         player.die()
         camera!.removeAllActions()
         gameTimer.removeAllActions()
         gameTimer.pauseTime()
-        runAction(SKAction.sequence([SKAction.waitForDuration(0.75), SKAction.runBlock({
+        run(SKAction.sequence([SKAction.wait(forDuration: 0.75), SKAction.run({
             self.resetLevel()
         })]))
     }
     
-    func didEndContact(contact: SKPhysicsContact) {
+    func didEnd(_ contact: SKPhysicsContact) {
         
     }
     
-    func swipedUp(sender:UISwipeGestureRecognizer){
+    func swipedUp(_ sender:UISwipeGestureRecognizer){
         player.moveUp()
     }
     
-    func tap(sender:UISwipeGestureRecognizer) {
+    func tap(_ sender:UISwipeGestureRecognizer) {
         player.moveForward()
     }
     
-    func moveCamera(position: CGPoint, speed: Double) {
+    func moveCamera(_ position: CGPoint, speed: Double) {
         if let camera = self.camera {
-            camera.runAction(SKAction.moveToX(position.x + cameraOffset.width, duration:speed))
-            gameTimer.runAction(SKAction.moveToX(position.x - cameraOffset.width * 1.75 , duration:speed))
+            camera.run(SKAction.moveTo(x: position.x + cameraOffset.width, duration:speed))
+            gameTimer.run(SKAction.moveTo(x: position.x - cameraOffset.width * 1.75 , duration:speed))
         }
     }
 
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
   
     }
     
     func printAllNodes() {
-        self.enumerateChildNodesWithName("//*") {
+        self.enumerateChildNodes(withName: "//*") {
             node, stop in
             print(node)
         }
     }
     
     func setNextTile() {
-        tileNumber++
+        tileNumber += 1
     }
     
     func getNextTile() -> SKNode? {
-        if let tile = childNodeWithName("tile-\(tileNumber + 1)") {
+        if let tile = childNode(withName: "tile-\(tileNumber + 1)") {
             return tile
         }
         
@@ -167,7 +198,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func getFirstTile() -> SKNode? {
-        if let tile = childNodeWithName("tile-1") {
+        if let tile = childNode(withName: "tile-1") {
             return tile
         }
         
@@ -176,7 +207,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func resetLevel() {
         if let scene = GameScene(fileNamed:levelName) {
-            scene.scaleMode = .ResizeFill
+            scene.scaleMode = .resizeFill
             let skView = self.view! as SKView
             scene.size = skView.bounds.size
             self.view?.presentScene(scene)
@@ -199,8 +230,8 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         addChild(victoryMenu)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
     }
 
 }
