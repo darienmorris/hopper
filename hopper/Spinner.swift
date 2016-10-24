@@ -22,7 +22,7 @@ class Spinner: Enemy {
         sprite.physicsBody?.collisionBitMask = 0
         
         
-        let duration: Double = 1
+        let duration: Double = 1.5
         sprite.run(SKAction.repeatForever(SKAction.sequence([SKAction.moveTo(y: self.sprite.position.y - 100, duration:duration), SKAction.moveTo(y: self.sprite.position.y + 100, duration:duration)])))
         
         initAnimation();
@@ -30,12 +30,12 @@ class Spinner: Enemy {
     }
     
     func initAnimation() {
-        let animatedAtlas = SKTextureAtlas(named: "atlas-spinner")
+        let animatedAtlas = SKTextureAtlas(named: "atlas-bat")
         var frames = [SKTexture]()
         
         let numImages = animatedAtlas.textureNames.count
         for i in 1..<numImages+1 {
-            let textureName = "e-spinner-\(i)"
+            let textureName = "bat-\(i)"
             frames.append(animatedAtlas.textureNamed(textureName))
         }
         
@@ -45,7 +45,7 @@ class Spinner: Enemy {
     func startAnimation() {
         sprite.run(SKAction.repeatForever(
             SKAction.animate(with: animationFrames,
-                timePerFrame: 0.05,
+                timePerFrame: 0.15,
                 resize: false,
                 restore: true)),
             withKey:"spinnerAnimation")

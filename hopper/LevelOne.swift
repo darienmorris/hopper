@@ -12,7 +12,7 @@ import SpriteKit
 class GameScene: LevelScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        levelName = "LevelOne"
+        levelName = "LevelDungeonOne"
         
         
     }

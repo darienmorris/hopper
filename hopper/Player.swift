@@ -19,7 +19,7 @@ class Player {
     
     init(scene: LevelScene) {
 
-        sprite = SKSpriteNode(imageNamed:"player-default")
+        sprite = SKSpriteNode(imageNamed:"idle-1")
         
         // a lower collision size is more forgiving for players
         let collisionSize: CGFloat = 0.85

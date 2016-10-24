@@ -50,7 +50,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
    
     func initCamera() {
         if let camera:SKCameraNode = self.childNode(withName: "Camera") as? SKCameraNode {
-            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y)
+            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y - 50)
             self.camera = camera
             
         }

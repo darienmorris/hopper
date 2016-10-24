@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		192892061DBC1E6B0070F646 /* WingMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192892051DBC1E6B0070F646 /* WingMan.swift */; };
+		192892081DBDAEEA0070F646 /* LevelDungeonOne.sks in Resources */ = {isa = PBXBuildFile; fileRef = 192892071DBDAEEA0070F646 /* LevelDungeonOne.sks */; };
 		19B846491C04076D00CE9184 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B846481C04076D00CE9184 /* Enemy.swift */; };
 		19B8464C1C040A7500CE9184 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B8464B1C040A7500CE9184 /* Spinner.swift */; };
 		19B8464F1C0B9C1100CE9184 /* VictoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B8464E1C0B9C1100CE9184 /* VictoryMenu.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		192892051DBC1E6B0070F646 /* WingMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WingMan.swift; sourceTree = "<group>"; };
+		192892071DBDAEEA0070F646 /* LevelDungeonOne.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelDungeonOne.sks; sourceTree = "<group>"; };
 		19B846481C04076D00CE9184 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		19B8464B1C040A7500CE9184 /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		19B8464E1C0B9C1100CE9184 /* VictoryMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VictoryMenu.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		19F388FF1BEC580C00FD22F1 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				192892071DBDAEEA0070F646 /* LevelDungeonOne.sks */,
 				19F388CD1BEBB06D00FD22F1 /* LevelOne.sks */,
 				19F388CF1BEBB06D00FD22F1 /* LevelOne.swift */,
 				19F389001BEC582300FD22F1 /* Level.swift */,
@@ -314,6 +317,7 @@
 				19F388DA1BEBB06D00FD22F1 /* LaunchScreen.storyboard in Resources */,
 				19F388D71BEBB06D00FD22F1 /* Assets.xcassets in Resources */,
 				19F388D51BEBB06D00FD22F1 /* Main.storyboard in Resources */,
+				192892081DBDAEEA0070F646 /* LevelDungeonOne.sks in Resources */,
 				19FCE4751C77B6CB009339D6 /* kenvector_future.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
