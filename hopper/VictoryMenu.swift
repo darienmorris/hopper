@@ -72,7 +72,7 @@ class VictoryMenu: SKNode {
         overlay.size = CGSize(width: scene.size.width, height: scene.size.height)
         addChild(overlay)
         
-        container.position = CGPoint(x: frame.midX, y: frame.origin.y - container.size.height)
+        container.position = CGPoint(x: frame.midX, y: frame.origin.y - container.size.height - 50)
         
         setupButtons()
         setupStars()
@@ -163,7 +163,7 @@ class VictoryMenu: SKNode {
     func moveContainerIn(_ frame: CGRect) {
         let containerAction = SKAction.moveTo(y: frame.midY, duration: 0.4)
         containerAction.timingMode = SKActionTimingMode.easeInEaseOut
-        container.run(containerAction, completion: animateStars)
+        container.run(SKAction.sequence([SKAction.wait(forDuration: 0.5), containerAction]), completion: animateStars)
     }
     
     func animateStars() {
