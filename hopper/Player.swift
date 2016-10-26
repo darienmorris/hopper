@@ -11,6 +11,7 @@ import SpriteKit
 
 class Player {
     
+    var animationFrames : [SKTexture]!
     var sprite: SKSpriteNode
     var scene: LevelScene
     var isMoving: Bool = false
@@ -28,8 +29,11 @@ class Player {
         sprite.physicsBody?.categoryBitMask = BodyType.player.rawValue
         sprite.physicsBody?.contactTestBitMask = BodyType.spinner.rawValue
         sprite.physicsBody?.collisionBitMask = 0
-        
         self.scene = scene
+        self.initAnimation();
+        self.startAnimation();
+        
+        
     }
     
     func setPosition(_ x: CGFloat, y: CGFloat) {
@@ -96,7 +100,6 @@ class Player {
     }
     
     func bounce() {
-        print("BOUNCE!")
         isMoving = true
         let jumpDuration = 0.25
         let moveUp = SKAction.moveTo(y: sprite.position.y + 30, duration: jumpDuration / 2)
@@ -130,5 +133,27 @@ class Player {
     
     func moveUpComplete() {
         isMoving = false
+    }
+    
+    func initAnimation() {
+        let animatedAtlas = SKTextureAtlas(named: "atlas-player")
+        var frames = [SKTexture]()
+        
+        let numImages = animatedAtlas.textureNames.count
+        for i in 1..<numImages+1 {
+            let textureName = "idle-\(i)"
+            frames.append(animatedAtlas.textureNamed(textureName))
+        }
+        
+        animationFrames = frames
+    }
+    
+    func startAnimation() {
+        sprite.run(SKAction.repeatForever(
+            SKAction.animate(with: animationFrames,
+                             timePerFrame: 0.15,
+                             resize: false,
+                             restore: true)),
+                   withKey:"playerIdleAnimation")
     }
 }

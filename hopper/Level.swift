@@ -237,7 +237,8 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func openVictoryMenu() {
         let victoryMenu = VictoryMenu()
-        let starTimes: [Double] = [0, 13, 7]
+        //TODO: save these startTimes in each Level
+        let starTimes: [Double] = [0, 6, 2]
         victoryMenu.setup(self, gameTime: gameTimer.timeValue, starTimes: starTimes, onReset: {
             self.resetLevel()
         })
