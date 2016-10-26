@@ -25,6 +25,8 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     var levelName = ""
     var cameraOffset: CGSize = CGSize(width: 100, height: 0)
     var gameTimer: GameTimer = GameTimer()
+    var cameraBG: SKCameraNode!
+    var cameraParallaxRatioBG: CGFloat = 0.8
     
 
     
@@ -49,9 +51,15 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
    
     func initCamera() {
-        if let camera:SKCameraNode = self.childNode(withName: "Camera") as? SKCameraNode {
+        if let camera:SKCameraNode = self.childNode(withName: "camera") as? SKCameraNode {
             camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y - 50)
             self.camera = camera
+            
+        }
+        
+        if let camera:SKCameraNode = self.childNode(withName: "camera-bg") as? SKCameraNode {
+            camera.position = CGPoint(x: player.sprite.position.x * cameraParallaxRatioBG + cameraOffset.width, y:player.sprite.position.y - 50)
+            self.cameraBG = camera
             
         }
     }
@@ -161,6 +169,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         pauseEnemies()
         player.die()
         camera!.removeAllActions()
+        cameraBG.removeAllActions()
         gameTimer.removeAllActions()
         gameTimer.pauseTime()
         run(SKAction.sequence([SKAction.wait(forDuration: 0.75), SKAction.run({
@@ -183,6 +192,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     func moveCamera(_ position: CGPoint, speed: Double) {
         if let camera = self.camera {
             camera.run(SKAction.moveTo(x: position.x + cameraOffset.width, duration:speed))
+            cameraBG.run(SKAction.moveTo(x: position.x * cameraParallaxRatioBG + cameraOffset.width, duration: speed))
             gameTimer.run(SKAction.moveTo(x: position.x - cameraOffset.width * 1.75 , duration:speed))
         }
     }
