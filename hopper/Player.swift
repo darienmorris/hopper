@@ -20,7 +20,7 @@ class Player {
     
     init(scene: LevelScene) {
 
-        sprite = SKSpriteNode(imageNamed:"idle-1")
+        sprite = SKSpriteNode(imageNamed:"idle-0")
         
         // a lower collision size is more forgiving for players
         let collisionSize: CGFloat = 0.85
@@ -140,7 +140,7 @@ class Player {
         var frames = [SKTexture]()
         
         let numImages = animatedAtlas.textureNames.count
-        for i in 1..<numImages+1 {
+        for i in 0..<numImages {
             let textureName = "idle-\(i)"
             frames.append(animatedAtlas.textureNamed(textureName))
         }

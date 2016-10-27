@@ -34,7 +34,7 @@ class Spinner: Enemy {
         var frames = [SKTexture]()
         
         let numImages = animatedAtlas.textureNames.count
-        for i in 1..<numImages+1 {
+        for i in 0..<numImages {
             let textureName = "bat-\(i)"
             frames.append(animatedAtlas.textureNamed(textureName))
         }

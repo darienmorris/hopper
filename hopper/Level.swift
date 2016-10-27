@@ -27,7 +27,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     var gameTimer: GameTimer = GameTimer()
     var cameraBG: SKCameraNode!
     var cameraParallaxRatioBG: CGFloat = 0.8
-    
+    var starTimes: [Double] = [0, 5, 10]
 
     
     override func didMove(to view: SKView) {
@@ -52,13 +52,13 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
    
     func initCamera() {
         if let camera:SKCameraNode = self.childNode(withName: "camera") as? SKCameraNode {
-            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y - 50)
+            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y)
             self.camera = camera
             
         }
         
         if let camera:SKCameraNode = self.childNode(withName: "camera-bg") as? SKCameraNode {
-            camera.position = CGPoint(x: player.sprite.position.x * cameraParallaxRatioBG + cameraOffset.width, y:player.sprite.position.y - 50)
+            camera.position = CGPoint(x: player.sprite.position.x * cameraParallaxRatioBG + cameraOffset.width, y:player.sprite.position.y)
             self.cameraBG = camera
             
         }
@@ -134,10 +134,13 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
 
                     print("COLLISION", enemyNode.name, findEnemyByName(name: enemyNode.name!))
                     if playerNode.position.y - playerNode.size.height < enemyNode.position.y - enemyNode.size.height / 2 {
+                        print("PLAYER DEAD", playerNode.position.y, playerNode.size.height, enemyNode.position.y, enemyNode.size.height)
                         runDeathSequence()
                     }
                     else {
+                        print("ENEMY SHOULD DIE")
                         if let wingMan = findEnemyByName(name: enemyNode.name!) as! WingMan? {
+                            print("ENEMY DEAD")
                             player.bounce()
                             wingMan.die()
                         }
@@ -247,8 +250,6 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
     
     func openVictoryMenu() {
         let victoryMenu = VictoryMenu()
-        //TODO: save these startTimes in each Level
-        let starTimes: [Double] = [0, 6, 2]
         victoryMenu.setup(self, gameTime: gameTimer.timeValue, starTimes: starTimes, onReset: {
             self.resetLevel()
         })

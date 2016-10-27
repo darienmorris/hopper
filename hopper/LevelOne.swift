@@ -11,10 +11,9 @@ import SpriteKit
 
 class GameScene: LevelScene {
     override func didMove(to view: SKView) {
-        super.didMove(to: view)
+        starTimes = [0, 6, 2]
         levelName = "LevelDungeonOne"
-        
-        
+        super.didMove(to: view)
     }
     
 
