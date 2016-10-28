@@ -132,15 +132,11 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
             else if enemyBody.categoryBitMask == BodyType.wingMan.rawValue {
                 if let enemyNode = enemyBody.node as? SKSpriteNode, let playerNode = playerBody.node as? SKSpriteNode {
 
-                    print("COLLISION", enemyNode.name, findEnemyByName(name: enemyNode.name!))
                     if playerNode.position.y - playerNode.size.height < enemyNode.position.y - enemyNode.size.height / 2 {
-                        print("PLAYER DEAD", playerNode.position.y, playerNode.size.height, enemyNode.position.y, enemyNode.size.height)
                         runDeathSequence()
                     }
                     else {
-                        print("ENEMY SHOULD DIE")
                         if let wingMan = findEnemyByName(name: enemyNode.name!) as! WingMan? {
-                            print("ENEMY DEAD")
                             player.bounce()
                             wingMan.die()
                         }
