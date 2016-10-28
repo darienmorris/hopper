@@ -45,6 +45,7 @@ class Player {
         setPosition(x, y:y + sprite.size.height / 2)
         sprite.name = "Darien"
         sprite.zPosition = 10
+        //sprite.anchorPoint = CGPoint(x:0.5, y:0.2)
         scene.addChild(sprite)
         positionOnTile = sprite.position
     }

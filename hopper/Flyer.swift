@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class WingMan: Enemy {
+class Flyer: Enemy {
     
     var animationFrames : [SKTexture]!
     
@@ -49,7 +49,7 @@ class WingMan: Enemy {
                              timePerFrame: 0.05,
                              resize: false,
                              restore: true)),
-                   withKey:"WingManAnimation")
+                   withKey:"FlyerAnimation")
     }
     
     func die() {

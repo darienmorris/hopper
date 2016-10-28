@@ -52,7 +52,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
    
     func initCamera() {
         if let camera:SKCameraNode = self.childNode(withName: "camera") as? SKCameraNode {
-            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y)
+            camera.position = CGPoint(x: player.sprite.position.x + cameraOffset.width, y:player.sprite.position.y + UIScreen.main.bounds.size.height * 0.15)
             self.camera = camera
             
         }
@@ -80,10 +80,10 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
             self.enemies.append(Spinner(scene: self, sprite: enemySprite))
         }
         
-        self.enumerateChildNodes(withName: "wing-man-*") {
+        self.enumerateChildNodes(withName: "flyer-*") {
             node, stop in
             let enemySprite: SKSpriteNode = node as! SKSpriteNode
-            self.enemies.append(WingMan(scene: self, sprite: enemySprite))
+            self.enemies.append(Flyer(scene: self, sprite: enemySprite))
         }
     }
     
@@ -136,7 +136,7 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
                         runDeathSequence()
                     }
                     else {
-                        if let wingMan = findEnemyByName(name: enemyNode.name!) as! WingMan? {
+                        if let wingMan = findEnemyByName(name: enemyNode.name!) as! Flyer? {
                             player.bounce()
                             wingMan.die()
                         }

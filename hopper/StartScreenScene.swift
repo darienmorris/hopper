@@ -15,8 +15,6 @@ class StartScreenScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
-        print("IT WORKED!")
-        
         startButton = childNode(withName: "button-start") as? SKSpriteNode
     }
     
