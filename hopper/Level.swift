@@ -34,11 +34,12 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
         initGestures(view)
         
         initEnemies()
+        
         initPhysics()
         initPlayer()
         
         initCamera()
-        
+        initBG()
         initTimer()
     }
     
@@ -84,6 +85,17 @@ class LevelScene: SKScene, SKPhysicsContactDelegate {
             node, stop in
             let enemySprite: SKSpriteNode = node as! SKSpriteNode
             self.enemies.append(Flyer(scene: self, sprite: enemySprite))
+        }
+    }
+    
+    func initBG() {
+        self.cameraBG.enumerateChildNodes(withName: "cloud") {
+            node, stop in
+            print("found a cloud")
+            let cloud: SKSpriteNode = node as! SKSpriteNode
+            let delay: Float = Float(2 + drand48())
+            let duration: Double = (Double)(Float(cloud.position.x) * delay)
+            cloud.run(SKAction.repeatForever(SKAction.moveTo(x: -1000, duration:duration)))
         }
     }
     
